@@ -3,14 +3,10 @@ FROM alpine:3.20.3
 ARG USER=default
 ENV HOME="/home/$USER"
 
-# install sudo as root
-RUN apk update
+RUN apk update --no-cache && apk upgrade --no-cache
 
 # Required libraries
-RUN apk add --no-cache sudo && \
-    apk add --no-cache gettext && \
-    apk add --no-cache jq && \
-    apk add --no-cache curl
+RUN apk add sudo gettext curl unzip gcompat jq yq
 
 # add new user
 RUN adduser -D $USER \
